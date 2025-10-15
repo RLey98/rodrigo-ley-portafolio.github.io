@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Interconnect - Modelo para predecir tasa de cancelación de clientes
+    </title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.5rem 0;
+      }
+
+      :root {
+        --bg-color: #2a2a2a;
+        --second-bg-color: #202020;
+        --text-color: #fff;
+        --second-color: #ccc;
+        --main-color: #ff4d05;
+        --big-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1.1rem;
+      }
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+      p {
+        margin: 1rem 0;
+      }
+
+      /* Estilo para “sección” */
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section-intro {
+        margin-bottom: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="section section-intro">
+      <h1>
+        Interconnect - Modelo para predecir tasa de cancelación de clientes
+      </h1>
+    </header>
+
+    <section class="section">
+      <h2>Introducción</h2>
+      <p>
+        La empresa Interconnect desea pronosticar su tasa de cancelación de
+        clientes. Si se descubre que un usuario o usuaria planea irse, se le
+        ofrecerán códigos promocionales y opciones de planes especiales. Por lo
+        tanto se busca analizar los datos contractuales, personales y de uso de
+        servicios de los clientes que el equipo de marketing de Interconnect ha
+        recopilado para identificar patrones que influyan en la tasa de
+        cancelación. Con esto, la empresa podrá anticipar qué clientes tienen
+        mayor riesgo de darse de baja y tomar medidas preventivas.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Objetivo</h2>
+      <p>
+        Desarrollar un modelo predictivo capaz de predecir la tasa de
+        cancelación de clientes de Interconnect usando métricas de evaluación,
+        como principal AUC-ROC que sea igual o mayor a 0.88 y exactitud como
+        secundaria.
+      </p>
+      <img src="imagen1.jpg" alt="Descripción de imagen 1" />
+      <p>
+        The data being inputted into the sheet was probably the cleanest data I
+        could use for a project. Each entry had 4 components: DateTime,
+        Notification, Song and Artist, and Category. The first step was to
+        remove Notification and Category since they are not relevant to the
+        project. Then, I split DateTime into separate Date and Time columns
+        using the Split function. The same split function was used for Song and
+        Artist.
+      </p>
+      <p>
+        While doing a spot check of the data, I realized that the Pixel was
+        sometimes double-reading the song, creating a duplicate entry. To
+        address this, a Duplicate Indicator was added, which would be set to
+        true if the same song came up less than 2 minutes apart from each other.
+        To make analytics easier, Day of the Week and Hour columns were also
+        added.
+      </p>
+      <img src="imagen2.jpg" alt="Descripción de imagen 2" />
+    </section>
+
+    <section class="section">
+      <h2>Data Analytics</h2>
+      <h3>as of April 23,2023 (about 90 Days of Data)</h3>
+      <p>
+        During the data collection process of my music data, we were able to
+        collect over 4200 data points. However, after cleaning and removing
+        duplicates, we ended up with over 3000 true data points. The duplicate
+        rate was higher than anticipated, with about 26% of the collected data
+        being duplicates. It was interesting to observe that most of the
+        duplicates occurred on weekends between 4pm and midnight, which makes
+        sense because that was when I listened to the most music.
+      </p>
+      <p>
+        I looked at the most listened-to songs and artists. It was interesting
+        to see that Dua Lipa was almost an outlier, having a 40% increase
+        compared to the next most listened-to artist. This was due to two of her
+        songs being in my top ten most listened-to songs.
+      </p>
+      <img src="imagen3.jpg" alt="Descripción de imagen 3" />
+      <img src="imagen4.jpg" alt="Descripción de imagen 4" />
+      <p>
+        Next, we looked at the frequency of artist and songs. This was because I
+        am known to listen to songs on repeat sometimes or get into a groove
+        where I only listen to one artist. Most songs and artists had a
+        frequency of one, only being heard once, with a frequency of 10 and
+        under being over 90% of the data for both songs and artists.
+      </p>
+      <p>
+        We then looked at the DateTime information and found that Friday,
+        Saturday, and Sunday were the days that I listened to the most music,
+        with an average of 40 songs logged on each of those days, while the
+        other days had an average of around 30 song.
+      </p>
+      <img src="imagen5.jpg" alt="Descripción de imagen 5" />
+      <p>
+        I made a heat map of my music listening habits throughout the week. The
+        data showed that I listen to music consistently every day, with the most
+        activity on weekends from 7 PM to midnight. I also listen to a
+        significant amount of music on Tuesdays and Wednesdays in the
+        afternoons.
+      </p>
+      <p>
+        From the heat map, it seems that music plays an important role in my
+        daily routine. The consistent pattern of music consumption suggests that
+        I rely on music to regulate my mood or energy levels throughout the day.
+        Additionally, the peak in music consumption during the weekends in the
+        evenings suggests that I use music as a way to relax and escape.
+      </p>
+      <img src="imagen6.jpg" alt="Descripción de imagen 6" />
+    </section>
+  </body>
+</html>
