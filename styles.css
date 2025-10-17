@@ -293,7 +293,8 @@ header.sticky {
   margin-bottom: 15px;
 }
 .layer p {
-  color: var(--second-color);
+  font-weight: bold;
+  color: var(--second-bg-color);
   font-size: 1rem;
   line-height: 1.8;
 }
