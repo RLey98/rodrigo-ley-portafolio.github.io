@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Interconnect - Modelo para predecir tasa de cancelación de clientes
+    </title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.5rem 0;
+      }
+
+      :root {
+        --bg-color: #2a2a2a;
+        --second-bg-color: #202020;
+        --text-color: #fff;
+        --second-color: #ccc;
+        --main-color: #ff4d05;
+        --big-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1.1rem;
+      }
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+      p {
+        margin: 1rem 0;
+      }
+
+      /* Estilo para “sección” */
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section-intro {
+        margin-bottom: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="section section-intro">
+      <h1>
+        Inappropiate Comments - Modelo para Clasificar Comentarios Tóxicos
+      </h1>
+    </header>
+
+    <section class="section">
+      <h2>Introducción</h2>
+      <p>
+        Las plataformas en línea enfrentan el desafío constante de moderar los
+        comentarios de los usuarios para prevenir comportamientos dañinos o
+        tóxicos. El objetivo de este proyecto es desarrollar un modelo de
+        machine learning capaz de detectar y clasificar comentarios tóxicos. El
+        dataset contiene comentarios etiquetados por evaluadores humanos con
+        seis tipos de toxicidad: toxic, severe_toxic, obscene, threat, insult y
+        identity_hate.
+      </p>
+      <p>
+        Este proyecto busca preprocesar los textos, construir un modelo
+        predictivo y evaluar su desempeño, generando finalmente un archivo de
+        envío con probabilidades predichas para cada tipo de toxicidad.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Objetivo</h2>
+      <p>
+        Desarrollar un modelo de machine learning capaz de detectar y clasificar
+        comentarios tóxicos.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Recolección y Limpieza de Datos</h2>
+      <h3>El dataset consiste en dos archivos principales:</h3>
+      <p>
+        train.csv — Contiene 159,571 comentarios con sus etiquetas binarias para
+        cada tipo de toxicidad.
+      </p>
+      <p>
+        test.csv — Contiene 153,164 comentarios para los cuales debemos predecir
+        probabilidades.
+      </p>
+      <h3>Pasos en la limpieza de datos:</h3>
+      <p>
+        Eliminar caracteres especiales, URLs, números y texto no inglés para
+        reducir ruido:
+      </p>
+      <p>
+        Tokenización del texto en palabras para la extracción de
+        características:
+      </p>
+      <h2>Análisis Exploratorio de Datos</h2>
+      <p>
+        Se realizó un análisis exploratorio de los datos para comprender mejor
+        la distribución y características de los comentarios. Se observaron
+        aspectos como la longitud de los comentarios, la frecuencia de palabras
+        y la distribución de las etiquetas de toxicidad.
+      </p>
+      <p>
+        Distribución de clases: Contando la cantidad de comentarios por tipo de
+        toxicidad, observamos que algunas clases (severe_toxic y threat) son
+        mucho más raras que otras (toxic o insult). Esto indica un desbalance de
+        clases, que afecta el entrenamiento del modelo.
+      </p>
+      <img src="./images/toxic_count.png" alt="Descripción de imagen 2" />
+      <p>
+        Comentarios de ejemplo: Revisar ejemplos aleatorios por clase nos ayudó
+        a entender el tipo de lenguaje asociado con cada etiqueta de toxicidad.
+      </p>
+      <p>
+        Nubes de palabras: Visualizaciones de las palabras más frecuentes por
+        clase muestran patrones y palabras clave típicas para cada tipo de
+        comportamiento tóxico.
+      </p>
+      <img src="./images/wordscloud.png" alt="Descripción de imagen 3" />
+      <h2>Ingeniería de Características</h2>
+      <p>
+        Se utilizaron técnicas de procesamiento de lenguaje natural (NLP) para
+        convertir los comentarios en representaciones numéricas que el modelo
+        pueda entender. Esto incluyó la vectorización de texto utilizando TF-IDF
+        y la creación de n-gramas para capturar contexto.
+      </p>
+      <p>
+        Transformamos el texto en características numéricas usando TF-IDF,
+        considerando unigramas y bigramas:
+      </p>
+      <p>trn_term_doc = vec.fit_transform(df_train['comment_text'])</p>
+      <p>val_term_doc = vec.transform(valid['comment_text'])</p>
+      <p>test_term_doc = vec.transform(df_test['comment_text'])</p>
+      <h2>Construcción del Modelo</h2>
+      <p>
+        Se entrenaron modelos de clasificación binaria independientes para cada
+        tipo de toxicidad utilizando regresión logística. Se ajustaron los
+        hiperparámetros mediante validación cruzada para optimizar el
+        rendimiento del modelo.
+      </p>
+      <p>
+        Se implementó un clasificador Naive Bayes + Regresión Logística (NB-LR),
+        que mejora la regresión logística usando razones logarítmicas de cuentas
+        derivadas de la frecuencia de palabras por clase.
+      </p>
+    </section>
+  </body>
+</html>
