@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rusty Bargain — Car Value Predictor</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.5rem 0;
+      }
+
+      :root {
+        --bg-color: #2a2a2a;
+        --second-bg-color: #202020;
+        --text-color: #fff;
+        --second-color: #ccc;
+        --main-color: #ff4d05;
+        --big-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1.1rem;
+      }
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+      p {
+        margin: 1rem 0;
+      }
+
+      /* Estilo para “sección” */
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section-intro {
+        margin-bottom: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="margin-top: 40px">
+      <a
+        href="https://rley98.github.io/rodrigo-ley-portafolio.github.io/"
+        style="
+          background-color: #ff4d05;
+          color: white;
+          padding: 12px 28px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-family: 'Inter', sans-serif;
+          transition: all 0.3s ease;
+        "
+      >
+        ← Back to Projects
+      </a>
+    </div>
+
+    <header class="section section-intro">
+      <h1>Rusty Bargain — Car Value Predictor</h1>
+    </header>
+
+    <section class="section">
+      <h2>🔹 Context</h2>
+      <p>
+        Rusty Bargain is an online marketplace that connects sellers and buyers
+        of used cars. The company aims to improve pricing accuracy in its
+        listings by building a data-driven model that can estimate the fair
+        market value of a car based on its technical and historical
+        characteristics.
+      </p>
+      <p>
+        <strong>Main question:</strong> Can we develop a reliable model that
+        predicts the market price of a car given its features, helping both
+        buyers and sellers make more informed decisions?
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🎯 Project Goal</h2>
+      <p>
+        Build a regression model capable of predicting the market value of used
+        cars based on their attributes (brand, model year, mileage, fuel type,
+        transmission, engine size, etc.), to support fair pricing strategies and
+        improve customer satisfaction.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🪜 Approach</h2>
+      <p>
+        The project followed a complete machine learning workflow: exploratory
+        data analysis, feature preprocessing, model training, hyperparameter
+        tuning, and performance evaluation using robust regression metrics.
+      </p>
+
+      <h3>📘 Data Overview</h3>
+      <p>
+        The dataset contains <strong>270,918 car listings</strong> with features
+        such as model year, brand, mileage, fuel type, engine capacity,
+        transmission, and condition. The target variable is <code>price</code>,
+        ranging from 500 to 20,000 (USD equivalent).
+      </p>
+
+      <h3>🧹 Data Preprocessing</h3>
+      <ul>
+        <li>
+          Removed duplicates and handled missing values across categorical and
+          numerical features.
+        </li>
+        <li>
+          Applied <strong>One-Hot Encoding</strong> to categorical variables
+          (brand, model, fuel type, transmission).
+        </li>
+        <li>
+          Scaled numerical features (e.g., mileage, engine volume, year) using
+          <code>StandardScaler</code>.
+        </li>
+        <li>
+          Split data into 80/20 train-test sets to ensure fair evaluation.
+        </li>
+      </ul>
+
+      <h3>🤖 Modeling</h3>
+      <p>
+        Trained and compared multiple supervised regression algorithms:
+        <strong>Linear Regression</strong>,
+        <strong>Random Forest Regressor</strong>,
+        <strong>CatBoost Regressor</strong>,
+        <strong>LightGBM Regressor</strong>, and
+        <strong>XGBoost Regressor</strong>.
+      </p>
+      <p>
+        Each model was tuned for optimal performance through GridSearchCV or
+        built-in hyperparameter optimization (CatBoost and LightGBM). Evaluation
+        was based on <strong>Root Mean Squared Error (RMSE)</strong> and
+        <strong>R² score</strong>.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>📊 Model Performance</h2>
+      <p>Comparative metrics for all models on the test set:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1em 0">
+        <thead style="background-color: #000000; color: white">
+          <tr>
+            <th style="border: 1px solid #ccc; padding: 8px">Model</th>
+            <th style="border: 1px solid #ccc; padding: 8px">
+              Training Time (s)
+            </th>
+            <th style="border: 1px solid #ccc; padding: 8px">
+              Prediction Time (s)
+            </th>
+            <th style="border: 1px solid #ccc; padding: 8px">RMSE</th>
+            <th style="border: 1px solid #ccc; padding: 8px">R² Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              Linear Regression
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.04</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.002</td>
+            <td style="border: 1px solid #ccc; padding: 8px">1579.49</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.88</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Random Forest</td>
+            <td style="border: 1px solid #ccc; padding: 8px">3.57</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.015</td>
+            <td style="border: 1px solid #ccc; padding: 8px">1550.32</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.89</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">CatBoost</td>
+            <td style="border: 1px solid #ccc; padding: 8px">2.95</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.008</td>
+            <td style="border: 1px solid #ccc; padding: 8px">1498.67</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.90</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">XGBoost</td>
+            <td style="border: 1px solid #ccc; padding: 8px">2.12</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.007</td>
+            <td style="border: 1px solid #ccc; padding: 8px">1445.54</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.91</td>
+          </tr>
+          <tr style="background-color: #fef1e6">
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">LightGBM (Final Model)</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">1.89</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">0.006</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">1421.30</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">0.91</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        The <strong>LightGBM Regressor</strong> was selected as the final model
+        for deployment, balancing prediction accuracy (R² = 0.91) and
+        computational efficiency.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>✅ Key Insights</h2>
+      <ul>
+        <li>
+          Car <strong>age</strong> and <strong>mileage</strong> have the
+          strongest negative correlation with price.
+        </li>
+        <li>
+          <strong>Brand</strong> and <strong>engine size</strong> significantly
+          influence perceived market value.
+        </li>
+        <li>
+          Newer vehicles with <strong>automatic transmission</strong> and
+          <strong>petrol engines</strong> tend to retain higher resale prices.
+        </li>
+        <li>
+          The model achieves predictions with an average error margin of roughly
+          30% relative to price variation, which is acceptable given the wide
+          price range.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>📄 Final Report & Conclusion</h2>
+      <p>
+        The project successfully completed all development stages: exploratory
+        analysis, feature engineering, data preprocessing, model comparison, and
+        tuning. The LightGBM model achieved an <strong>R² of 0.91</strong> and
+        an <strong>RMSE of 1421</strong>, indicating robust predictive
+        performance.
+      </p>
+      <p>
+        These results provide Rusty Bargain with a practical tool for estimating
+        car prices and improving listing accuracy. Future improvements could
+        involve integrating macroeconomic data (e.g., fuel prices, demand
+        trends) or refining feature selection through SHAP value analysis to
+        improve interpretability.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>📊 Visualizations</h2>
+      <p style="text-align: center; font-style: italic">
+        <img
+          src="./images/price_distribution.png"
+          alt="Price distribution"
+          style="max-width: 80%"
+        />
+      </p>
+      <p style="text-align: center; font-style: italic">
+        <img
+          src="./images/feature_importance.png"
+          alt="Feature importance"
+          style="max-width: 80%"
+        />
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🔗 View the Code</h2>
+      <p>
+        💻 View the full notebook and implementation on GitHub:
+        <a
+          href="https://github.com/your-username/car-value-predictor"
+          style="color: #007acc; text-decoration: none"
+          ><strong>👉 Click here to open the repository</strong></a
+        >
+      </p>
+    </section>
+  </body>
+</html>

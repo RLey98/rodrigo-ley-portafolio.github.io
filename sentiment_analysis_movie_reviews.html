@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Film Junky Union – Sentiment Analysis for Movie Reviews (NLP)</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.5rem 0;
+      }
+
+      :root {
+        --bg-color: #2a2a2a;
+        --second-bg-color: #202020;
+        --text-color: #fff;
+        --second-color: #ccc;
+        --main-color: #ff4d05;
+        --big-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1.1rem;
+      }
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+      p {
+        margin: 1rem 0;
+      }
+
+      /* Estilo para “sección” */
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section-intro {
+        margin-bottom: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="margin-top: 40px">
+      <a
+        href="https://rley98.github.io/rodrigo-ley-portafolio.github.io/"
+        style="
+          background-color: #ff4d05;
+          color: white;
+          padding: 12px 28px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-family: 'Inter', sans-serif;
+          transition: all 0.3s ease;
+        "
+      >
+        ← Back to Projects
+      </a>
+    </div>
+
+    <header class="section section-intro">
+      <h1>Film Junky Union – Sentiment Analysis for Movie Reviews (NLP)</h1>
+    </header>
+
+    <section class="section">
+      <h2>🎬 Context</h2>
+      <p>
+        Film Junky Union, a modern community for classic movie enthusiasts, aims
+        to create an intelligent system to filter and categorize film reviews.
+        The goal is to automatically detect negative reviews using Natural
+        Language Processing (NLP) techniques and a labeled dataset of IMDB movie
+        reviews.
+      </p>
+      <p>
+        By identifying the sentiment behind each review, the system allows the
+        community to better manage and highlight constructive discussions while
+        filtering out negative or unhelpful content.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🎯 Project Goal</h2>
+      <p>
+        The objective was to train a model capable of classifying movie reviews
+        as
+        <strong>positive</strong> or <strong>negative</strong> with an F1 score
+        of at least <strong>0.85</strong> on the test set.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🪜 Approach</h2>
+      <p>
+        The project followed a structured NLP workflow: data exploration,
+        preprocessing, text cleaning, feature extraction using TF-IDF, model
+        training with multiple algorithms, evaluation through key metrics, and
+        comparison with a pre-trained language model (BERT).
+      </p>
+
+      <h3>📘 Data Exploration</h3>
+      <p>
+        The dataset consists of IMDB movie reviews labeled as positive or
+        negative. An analysis was performed to understand trends, including how
+        sentiments evolved over the years and how reviews were distributed by
+        rating and movie count.
+      </p>
+
+      <h3>🧹 Data Preprocessing</h3>
+      <ul>
+        <li>Removal of HTML tags, punctuation, and stopwords.</li>
+        <li>Tokenization and lemmatization using <code>spaCy</code>.</li>
+        <li>
+          Text vectorization with <strong>TF-IDF</strong> for traditional
+          models.
+        </li>
+        <li>
+          Use of <strong>BERT embeddings</strong> for deep learning comparison.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>📊 Data Visualizations</h2>
+      <p>
+        Several visualizations were created to better understand review
+        dynamics:
+      </p>
+      <ul>
+        <li>📈 Number of movies released over time.</li>
+        <li>🎥 Number of reviews per movie (bar and KDE plot).</li>
+        <li>⭐ Score distribution showing sentiment polarization.</li>
+        <li>📅 Distribution of positive and negative reviews across years.</li>
+      </ul>
+
+      <img src="./images/movies_over_time.png" alt="Movies over time" />
+      <img src="./images/reviews_per_movie.png" alt="Reviews per movie" />
+      <img src="./images/scores_distribution.png" alt="Score distribution" />
+      <img src="./images/reviews_years.png" alt="Reviews over the years" />
+    </section>
+
+    <section class="section">
+      <h2>🤖 Model Evaluation</h2>
+      <p>
+        Multiple models were trained and evaluated using several performance
+        metrics such as <strong>Accuracy</strong>, <strong>F1-score</strong>,
+        <strong>Average Precision Score (APS)</strong>, and
+        <strong>ROC AUC</strong>. The table below summarizes their results on
+        both training and test sets:
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1em 0">
+        <thead style="background-color: #ff4d05; color: white">
+          <tr>
+            <th style="border: 1px solid #444; padding: 8px">Model</th>
+            <th style="border: 1px solid #444; padding: 8px">
+              Accuracy (Test)
+            </th>
+            <th style="border: 1px solid #444; padding: 8px">F1 (Test)</th>
+            <th style="border: 1px solid #444; padding: 8px">ROC AUC (Test)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #444; padding: 8px">
+              Dummy Classifier
+            </td>
+            <td>0.50</td>
+            <td>0.00</td>
+            <td>0.50</td>
+          </tr>
+          <tr style="background-color: #1c1c1c">
+            <td style="border: 1px solid #444; padding: 8px">
+              <strong>Logistic Regression (TF-IDF)</strong>
+            </td>
+            </td>
+            <td><strong>0.88</strong></td>
+            <td><strong>0.88</strong></td>
+            <td><strong>0.95</strong></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #444; padding: 8px">LightGBM</td>
+            <td>0.86</td>
+            <td>0.87</td>
+            <td>0.94</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #444; padding: 8px">Random Forest</td>
+            <td>0.84</td>
+            <td>0.84</td>
+            <td>0.92</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #444; padding: 8px">
+              BERT
+            <td>0.82</td>
+            <td>0.82</td>
+            <td>0.90</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        The <strong>Logistic Regression model with TF-IDF</strong> achieved the
+        highest F1 score on the test set (<strong>0.88</strong>), surpassing the
+        required threshold of 0.85. While the BERT model performed slightly
+        below it, its performance was consistent between training and testing,
+        showing excellent generalization.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>✅ Key Insights</h2>
+      <ul>
+        <li>
+          Negative reviews increased significantly in recent years, indicating
+          stricter audience expectations.
+        </li>
+        <li>
+          Highly-rated movies tend to receive a smaller proportion of negative
+          reviews.
+        </li>
+        <li>
+          TF-IDF proved efficient for this dataset, outperforming more complex
+          models like Random Forest and LightGBM.
+        </li>
+        <li>
+          BERT demonstrated strong balance between training and test
+          performance, showing promise for future optimization.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>📄 Conclusion</h2>
+      <p>
+        The project successfully met its goal by achieving an F1 score of
+        <strong>0.88</strong>, surpassing the target threshold. The Logistic
+        Regression with TF-IDF provided the best trade-off between accuracy,
+        interpretability, and performance.
+      </p>
+      <p>
+        This system can be integrated into Film Junky Union’s review management
+        process to automatically detect negative reviews, helping moderators
+        prioritize responses and maintain a constructive community environment.
+      </p>
+      <p>
+        For future improvements, fine-tuning BERT or exploring hybrid approaches
+        that combine deep contextual embeddings with lightweight classifiers
+        could further enhance performance.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🔗 View the Code</h2>
+      <p>
+        💻 View the full notebook and implementation on GitHub:
+        <a
+          href="https://github.com/your-username/your-repository"
+          style="color: #ff4d05; text-decoration: none"
+          ><strong>👉 Click here to open the repository</strong></a
+        >
+      </p>
+    </section>
+  </body>
+</html>
