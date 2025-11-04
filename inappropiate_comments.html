@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Interconnect - Modelo para predecir tasa de cancelación de clientes
-    </title>
+    <title>Inappropiate Comments - Model for Classifying Toxic Comments</title>
     <style>
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, sans-serif;
         line-height: 1.6;
         color: #333;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 2rem;
       }
@@ -68,107 +66,168 @@
     </style>
   </head>
   <body>
+    <div style="margin-top: 40px">
+      <a
+        href="projects.html"
+        style="
+          background-color: #ff4d05;
+          color: white;
+          padding: 12px 28px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-family: 'Inter', sans-serif;
+          transition: all 0.3s ease;
+        "
+      >
+        ← Back to Projects
+      </a>
+    </div>
     <header class="section section-intro">
-      <h1>
-        Inappropiate Comments - Modelo para Clasificar Comentarios Tóxicos
-      </h1>
+      <h1>Inappropiate Comments - Model for Classifying Toxic Comments</h1>
     </header>
 
     <section class="section">
-      <h2>Introducción</h2>
+      <h2>🔹 Context</h2>
       <p>
-        Las plataformas en línea enfrentan el desafío constante de moderar los
-        comentarios de los usuarios para prevenir comportamientos dañinos o
-        tóxicos. El objetivo de este proyecto es desarrollar un modelo de
-        machine learning capaz de detectar y clasificar comentarios tóxicos. El
-        dataset contiene comentarios etiquetados por evaluadores humanos con
-        seis tipos de toxicidad: toxic, severe_toxic, obscene, threat, insult y
-        identity_hate.
+        Online communities often face the challenge of toxic or offensive
+        comments that harm user experience and increase moderators’ workload.
       </p>
       <p>
-        Este proyecto busca preprocesar los textos, construir un modelo
-        predictivo y evaluar su desempeño, generando finalmente un archivo de
-        envío con probabilidades predichas para cada tipo de toxicidad.
+        <strong>Main question:</strong> How can we automatically detect
+        inappropriate comments before they are published?
       </p>
     </section>
 
     <section class="section">
-      <h2>Objetivo</h2>
+      <h2>🎯 Project Goal</h2>
       <p>
-        Desarrollar un modelo de machine learning capaz de detectar y clasificar
-        comentarios tóxicos.
+        Develop a system capable of identifying comments that contain offensive,
+        hateful, or threatening language, helping online platforms moderate
+        discussions faster and more accurately.
       </p>
     </section>
 
     <section class="section">
-      <h2>Recolección y Limpieza de Datos</h2>
-      <h3>El dataset consiste en dos archivos principales:</h3>
+      <h2>🪜 Approach</h2>
       <p>
-        train.csv — Contiene 159,571 comentarios con sus etiquetas binarias para
-        cada tipo de toxicidad.
+        To tackle this problem, I followed a process focused on understanding
+        the language behind toxicity:
       </p>
+
+      <h3>📘 Data Exploration</h3>
       <p>
-        test.csv — Contiene 153,164 comentarios para los cuales debemos predecir
-        probabilidades.
+        I analyzed a real dataset of user comments labeled as <em>toxic</em>,
+        <em>offensive</em>, or <em>neutral</em>. This helped identify common
+        patterns and frequent words across different categories.
       </p>
-      <h3>Pasos en la limpieza de datos:</h3>
+
+      <h3>🧹 Text Cleaning</h3>
       <p>
-        Eliminar caracteres especiales, URLs, números y texto no inglés para
-        reducir ruido:
+        I removed unnecessary characters, links, symbols, and redundant
+        punctuation so that the analysis focused purely on the message content.
       </p>
+
+      <h3>🌈 Visual Pattern Discovery</h3>
       <p>
-        Tokenización del texto en palabras para la extracción de
-        características:
+        I created visualizations and word clouds to uncover the most frequent
+        expressions in toxic comments. For example:
       </p>
-      <h2>Análisis Exploratorio de Datos</h2>
+      <ul>
+        <li>Short and repetitive insults were the most common.</li>
+        <li>
+          Threats often included words related to violence or physical harm.
+        </li>
+      </ul>
+
+      <h3>🤖 Model Training</h3>
       <p>
-        Se realizó un análisis exploratorio de los datos para comprender mejor
-        la distribución y características de los comentarios. Se observaron
-        aspectos como la longitud de los comentarios, la frecuencia de palabras
-        y la distribución de las etiquetas de toxicidad.
+        The cleaned text was converted into numerical features (like word
+        frequency), and a
+        <strong>multi-label classification model</strong> was trained to predict
+        the toxicity level of each comment.
       </p>
+    </section>
+    <section class="section">
+      <h2>📊 Visualizations with Simple Explanations</h2>
+
+      <h3>🔸 Distribution of Toxicity Types</h3>
       <p>
-        Distribución de clases: Contando la cantidad de comentarios por tipo de
-        toxicidad, observamos que algunas clases (severe_toxic y threat) son
-        mucho más raras que otras (toxic o insult). Esto indica un desbalance de
-        clases, que afecta el entrenamiento del modelo.
+        This chart shows how many comments belong to each category. It reveals
+        that <strong>insults and offensive remarks are the most common</strong>,
+        while explicit threats make up a smaller portion.
       </p>
-      <img src="./images/toxic_count.png" alt="Descripción de imagen 2" />
-      <p>
-        Comentarios de ejemplo: Revisar ejemplos aleatorios por clase nos ayudó
-        a entender el tipo de lenguaje asociado con cada etiqueta de toxicidad.
+      <p style="text-align: center; font-style: italic">
+        <img src="./images/toxic_count.png" alt="Descripción de imagen 2" />
       </p>
+
+      <h3>🔸 Word Cloud – Offensive Comments</h3>
       <p>
-        Nubes de palabras: Visualizaciones de las palabras más frecuentes por
-        clase muestran patrones y palabras clave típicas para cada tipo de
-        comportamiento tóxico.
+        This word cloud highlights the most frequent terms found in offensive
+        comments. Words like <em>“idiot”</em>, <em>“stupid”</em>, and
+        <em>“hate”</em> appear often, showing clear patterns of aggressive
+        language.
       </p>
-      <img src="./images/wordscloud.png" alt="Descripción de imagen 3" />
-      <h2>Ingeniería de Características</h2>
-      <p>
-        Se utilizaron técnicas de procesamiento de lenguaje natural (NLP) para
-        convertir los comentarios en representaciones numéricas que el modelo
-        pueda entender. Esto incluyó la vectorización de texto utilizando TF-IDF
-        y la creación de n-gramas para capturar contexto.
+      <p style="text-align: center; font-style: italic">
+        <img src="./images/wordscloud.png" alt="Descripción de imagen 3" />
       </p>
+    </section>
+    <section class="section">
+      <h2>✅ Results</h2>
       <p>
-        Transformamos el texto en características numéricas usando TF-IDF,
-        considerando unigramas y bigramas:
+        The final model achieved the following ROC AUC scores for each class:
       </p>
-      <p>trn_term_doc = vec.fit_transform(df_train['comment_text'])</p>
-      <p>val_term_doc = vec.transform(valid['comment_text'])</p>
-      <p>test_term_doc = vec.transform(df_test['comment_text'])</p>
-      <h2>Construcción del Modelo</h2>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1em 0">
+        <thead style="background-color: #000000">
+          <tr>
+            <th style="border: 1px solid #ccc; padding: 8px">Category</th>
+            <th style="border: 1px solid #ccc; padding: 8px">ROC AUC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Toxic</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.879</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Severe Toxic</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.875</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Obscene</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.919</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Threat</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.970</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Insult</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.882</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Identity Hate</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.886</td>
+          </tr>
+        </tbody>
+      </table>
+
       <p>
-        Se entrenaron modelos de clasificación binaria independientes para cada
-        tipo de toxicidad utilizando regresión logística. Se ajustaron los
-        hiperparámetros mediante validación cruzada para optimizar el
-        rendimiento del modelo.
+        These results show strong performance in detecting various types of
+        toxicity, especially in identifying
+        <em>threats</em> and <em>obscene language</em>. This allows moderators
+        to automate a large portion of the review process, significantly
+        reducing manual work.
       </p>
+    </section>
+    <section class="section">
+      <h2>🔗 View the Code</h2>
       <p>
-        Se implementó un clasificador Naive Bayes + Regresión Logística (NB-LR),
-        que mejora la regresión logística usando razones logarítmicas de cuentas
-        derivadas de la frecuencia de palabras por clase.
+        💻 View the full code and notebook on GitHub:
+        <a href="#" style="color: #007acc; text-decoration: none"
+          ><strong>👉 Add your repository link here</strong></a
+        >
       </p>
     </section>
   </body>
