@@ -68,34 +68,255 @@
     </style>
   </head>
   <body>
+    <div style="margin-top: 40px">
+      <a
+        href="https://rley98.github.io/rodrigo-ley-portafolio.github.io/"
+        style="
+          background-color: #ff4d05;
+          color: white;
+          padding: 12px 28px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-family: 'Inter', sans-serif;
+          transition: all 0.3s ease;
+        "
+      >
+        ← Back to Projects
+      </a>
+    </div>
+
     <header class="section section-intro">
-      <h1>
-        Interconnect – Modelo de predicción para detectar cancelación de
-        clientes (Churn Prediction)
-      </h1>
+      <h1>Interconnect — Customer Churn Prediction</h1>
     </header>
 
     <section class="section">
-      <h2>Introducción</h2>
+      <h2>🔹 Context</h2>
       <p>
-        La empresa Interconnect desea pronosticar su tasa de cancelación de
-        clientes. Si se descubre que un usuario o usuaria planea irse, se le
-        ofrecerán códigos promocionales y opciones de planes especiales. Por lo
-        tanto se busca analizar los datos contractuales, personales y de uso de
-        servicios de los clientes que el equipo de marketing de Interconnect ha
-        recopilado para identificar patrones que influyan en la tasa de
-        cancelación. Con esto, la empresa podrá anticipar qué clientes tienen
-        mayor riesgo de darse de baja y tomar medidas preventivas.
+        Interconnect is a telecommunications provider offering phone and
+        internet services (DSL and fiber optic), plus add-ons like device
+        protection, online security and streaming packages. Reducing customer
+        churn is critical to maintain stable revenue and lower acquisition
+        costs.
+      </p>
+      <p>
+        <strong>Main question:</strong> Which customers are likely to cancel so
+        the company can proactively offer retention actions (discounts, special
+        plans, or promotional codes)?
       </p>
     </section>
 
     <section class="section">
-      <h2>Objetivo</h2>
+      <h2>🎯 Project Goal</h2>
       <p>
-        Desarrollar un modelo predictivo capaz de predecir la tasa de
-        cancelación de clientes de Interconnect usando métricas de evaluación,
-        como principal AUC-ROC que sea igual o mayor a 0.88 y exactitud como
-        secundaria.
+        Build a predictive model to estimate the probability that a customer
+        will cancel their service, enabling targeted retention campaigns and
+        better allocation of marketing/support resources.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🪜 Approach</h2>
+      <p>
+        The project followed a standard ML workflow: data integration, EDA,
+        feature engineering, preprocessing, model training (including tuning),
+        and final evaluation using robust metrics.
+      </p>
+
+      <h3>📘 Data Exploration</h3>
+      <p>
+        The dataset contains customer records (7,043 rows) with contract info,
+        service usage, payment method, and billing. Target:
+        <code>service_canceled</code>. Initial EDA revealed class imbalance
+        (~26% churn) and strong relationships between duration/total charges and
+        churn.
+      </p>
+
+      <h3>🧹 Data Preprocessing</h3>
+      <ul>
+        <li>
+          Converted date fields and derived
+          <code>customer_duration</code> (months).
+        </li>
+        <li>Binary encoded Yes/No features and gender to 0/1.</li>
+        <li>
+          Applied One-Hot Encoding to nominal categorical features (contract
+          type, payment, internet service).
+        </li>
+        <li>
+          Scaled numeric features with <code>StandardScaler</code> where
+          appropriate.
+        </li>
+        <li>
+          Handled class imbalance via <strong>upsampling</strong> on the
+          training set to ensure the model learned patterns for the minority
+          class.
+        </li>
+      </ul>
+
+      <h3>📈 Exploratory Insights</h3>
+      <ul>
+        <li>
+          <strong>Month-to-month contracts</strong> had the highest churn rate
+          (~42.7%).
+        </li>
+        <li>
+          <strong>Fiber optic</strong> customers exhibited higher churn (~41.9%)
+          compared to DSL (~18.9%).
+        </li>
+        <li>
+          <strong>Customer duration</strong> correlates negatively with churn
+          (corr ≈ -0.37) — longer-tenured customers cancel less.
+        </li>
+      </ul>
+
+      <h3>🤖 Modeling</h3>
+      <p>
+        I trained and compared several classifiers:
+        <strong>Logistic Regression</strong>, <strong>Random Forest</strong>,
+        <strong>LightGBM</strong>, <strong>CatBoost</strong>, and
+        <strong>XGBoost</strong>. Hyperparameters were tuned with GridSearchCV,
+        and models were evaluated mainly by <strong>ROC-AUC</strong> (primary)
+        and <strong>Accuracy</strong> (secondary).
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>📊 Model Performance</h2>
+      <p>Summary of main model metrics on the test set:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin: 1em 0">
+        <thead style="background-color: #000000; color: white">
+          <tr>
+            <th style="border: 1px solid #ccc; padding: 8px">Model</th>
+            <th style="border: 1px solid #ccc; padding: 8px">
+              Accuracy (Test)
+            </th>
+            <th style="border: 1px solid #ccc; padding: 8px">F1 Score</th>
+            <th style="border: 1px solid #ccc; padding: 8px">ROC AUC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              Logistic Regression
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.74</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.63</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.85</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">Random Forest</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.79</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.67</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.88</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">CatBoost</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.96</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.92</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.98</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ccc; padding: 8px">XGBoost</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.97</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.95</td>
+            <td style="border: 1px solid #ccc; padding: 8px">0.99</td>
+          </tr>
+          <tr style="background-color: #fef1e6">
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">LightGBM (Final Model)</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">0.97</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">0.95</strong>
+            </td>
+            <td style="border: 1px solid #ccc; padding: 8px">
+              <strong style="color: #000000">0.99</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        The <strong>LightGBM model</strong> was selected as the final model due
+        to its combination of high predictive performance (ROC-AUC ≈ 0.99) and
+        efficient training performance, making it suitable for production use.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>✅ Key Insights</h2>
+      <ul>
+        <li>
+          <strong>Contract type</strong> (month-to-month vs. 1/2 year) is the
+          strongest predictor of churn.
+        </li>
+        <li>
+          <strong>Internet service</strong> (fiber optic) is associated with
+          higher churn rates.
+        </li>
+        <li>
+          <strong>Longer customer duration</strong> and higher total charges
+          correlate with lower churn.
+        </li>
+        <li>
+          Higher monthly charges and paperless billing slightly increase churn
+          probability.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>📄 Final Report & Conclusion</h2>
+      <p>
+        All planned steps were completed: data cleaning, exploratory analysis,
+        feature engineering, preprocessing (encoding + scaling), model training,
+        hyperparameter tuning and evaluation. Key challenges included handling
+        an imbalanced target and ensuring that preprocessing was applied only on
+        the training set to avoid data leakage; these were solved with
+        upsampling and careful pipeline construction.
+      </p>
+      <p>
+        The final LightGBM model provides a reliable tool to identify customers
+        at high risk of cancellation, enabling the company to implement targeted
+        retention strategies (promotions, tailored plans, extra support). For
+        future improvements, consider adding customer behavior logs, NPS/survey
+        data, or experimenting with ensemble stacking for even better
+        robustness.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>📊 Visualizations</h2>
+      <p style="text-align: center; font-style: italic">
+        <!-- Replace with your own generated visuals -->
+        <img
+          src="./images/churn_by_contract.png"
+          alt="Churn by contract type"
+          style="max-width: 80%"
+        />
+      </p>
+      <p style="text-align: center; font-style: italic">
+        <img
+          src="./images/churn_by_internet.png"
+          alt="Churn by internet service"
+          style="max-width: 80%"
+        />
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>🔗 View the Code</h2>
+      <p>
+        💻 View the full notebook and implementation on GitHub:
+        <a
+          href="https://github.com/your-username/your-repository"
+          style="color: #007acc; text-decoration: none"
+          ><strong>👉 Click here to open the repository</strong></a
+        >
       </p>
     </section>
   </body>
